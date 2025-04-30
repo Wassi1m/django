@@ -16,5 +16,5 @@ cfgv==3.4.0
 chardet==5.2.0
 Django==4.2.11 
 gunicorn==21.2.0
-django-crispy-forms==2.1.0
-
+django-crispy-forms>=2.1.0,<3.0
++ crispy-bootstrap5>=0.7,<1.0
