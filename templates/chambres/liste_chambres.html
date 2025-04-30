@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Formulaires d'ajout -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Ajouter un type de chambre</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ type_form|crispy }}
+                        <button type="submit" name="type_form" class="btn btn-primary">Ajouter</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h5>Ajouter une chambre</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" name="chambre_form" class="btn btn-primary">Ajouter</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Liste des chambres -->
+        <div class="col-md-8">
+            <h1>Liste des Chambres</h1>
+            <div class="row">
+                {% for chambre in chambres %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Chambre {{ chambre.numero }}</h5>
+                            <p class="card-text">{{ chambre.description }}</p>
+                            <a href="{% url 'chambres:detail_chambre' chambre.id %}" class="btn btn-primary">Voir détails</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="jumbotron">
+        <h1 class="display-4">Bienvenue à l'Hôtel</h1>
+        <p class="lead">Système de gestion hôtelière</p>
+        <hr class="my-4">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Chambres</h5>
+                        <p class="card-text">Gérez les chambres de l'hôtel</p>
+                        <a href="{% url 'chambres:liste_chambres' %}" class="btn btn-primary">Voir les chambres</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Réservations</h5>
+                        <p class="card-text">Gérez les réservations</p>
+                        <a href="{% url 'reservations:liste_reservations' %}" class="btn btn-primary">Voir les réservations</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Matériels</h5>
+                        <p class="card-text">Gérez le matériel</p>
+                        <a href="{% url 'materiels:liste_materiels' %}" class="btn btn-primary">Voir le matériel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

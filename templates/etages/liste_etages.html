@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Formulaire d'ajout -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Ajouter un étage</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Liste des étages -->
+        <div class="col-md-8">
+            <h1>Liste des Étages</h1>
+            <div class="row">
+                {% for etage in etages %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Étage {{ etage.numero }}</h5>
+                            <p class="card-text">
+                                <strong>Désignation:</strong> {{ etage.designation }}<br>
+                                <strong>Description:</strong> {{ etage.description }}
+                            </p>
+                            <div class="btn-group">
+                                <a href="{% url 'etages:update_etage' etage.id %}" class="btn btn-warning">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </a>
+                                <a href="{% url 'etages:delete_etage' etage.id %}" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i> Supprimer
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

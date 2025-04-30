@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Formulaire d'ajout -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Nouvelle Réservation</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-primary">Réserver</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Liste des réservations -->
+        <div class="col-md-8">
+            <h1>Liste des Réservations</h1>
+            <div class="row">
+                {% for reservation in reservations %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header {% if reservation.statut == 'confirmee' %}bg-success text-white{% elif reservation.statut == 'annulee' %}bg-danger text-white{% endif %}">
+                            <h5 class="card-title mb-0">Réservation #{{ reservation.id }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <strong>Client:</strong> {{ reservation.client.username }}<br>
+                                <strong>Chambre:</strong> {{ reservation.chambre.numero }}<br>
+                                <strong>Arrivée:</strong> {{ reservation.date_arrivee|date:"d/m/Y H:i" }}<br>
+                                <strong>Départ:</strong> {{ reservation.date_depart|date:"d/m/Y H:i" }}<br>
+                                <strong>Nombre de personnes:</strong> {{ reservation.nombre_personnes }}<br>
+                                <strong>Statut:</strong> {{ reservation.get_statut_display }}
+                            </p>
+                            {% if reservation.commentaires %}
+                            <p class="card-text">
+                                <strong>Commentaires:</strong><br>
+                                {{ reservation.commentaires }}
+                            </p>
+                            {% endif %}
+                            <div class="btn-group">
+                                <a href="{% url 'reservations:update_reservation' reservation.id %}" class="btn btn-warning">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </a>
+                                <a href="{% url 'reservations:delete_reservation' reservation.id %}" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i> Supprimer
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Formulaire d'ajout -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Ajouter du matériel</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Liste du matériel -->
+        <div class="col-md-8">
+            <h1>Liste du Matériel</h1>
+            <div class="row">
+                {% for materiel in materiels %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ materiel.nom }}</h5>
+                            <p class="card-text">
+                                <strong>Chambre:</strong> {{ materiel.chambre.numero }}<br>
+                                <strong>Quantité:</strong> {{ materiel.quantite }}<br>
+                                <strong>État:</strong> {{ materiel.get_etat_display }}<br>
+                                <strong>Date d'acquisition:</strong> {{ materiel.date_acquisition }}
+                            </p>
+                            <div class="btn-group">
+                                <a href="{% url 'materiels:update_materiel' materiel.id %}" class="btn btn-warning">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </a>
+                                <a href="{% url 'materiels:delete_materiel' materiel.id %}" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i> Supprimer
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

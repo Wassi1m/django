@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2>Chambre {{ chambre.numero }}</h2>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Type: {{ chambre.type_chambre.nom }}</h5>
+            <p class="card-text">{{ chambre.description }}</p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Étage: {{ chambre.etage.numero }}</li>
+                <li class="list-group-item">Capacité: {{ chambre.capacite }} personnes</li>
+                <li class="list-group-item">Statut: {{ chambre.get_statut_display }}</li>
+                <li class="list-group-item">Prix: {{ chambre.type_chambre.prix_par_nuit }}€ par nuit</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %} 
