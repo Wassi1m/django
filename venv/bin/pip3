@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/home/user/Bureau/was (Copie)/venv/bin/python3" "$0" "$@"
+'''exec' "/home/user/Bureau/hotel django/venv/bin/python3" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re

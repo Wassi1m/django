@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hotel-management-ingress
+  namespace: hotel-management-test
+spec:
+  tls:
+  - hosts:
+    - test-hotel.yourdomain.com
+    secretName: test-hotel-management-tls
+  rules:
+  - host: test-hotel.yourdomain.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: test-hotel-management-service
+            port:
+              number: 80 

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hotel-management-app
+  namespace: hotel-management-test
+spec:
+  replicas: 1  # Moins de répliques pour le test
+  template:
+    spec:
+      containers:
+      - name: django-app
+        resources:
+          limits:
+            cpu: 300m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        env:
+        - name: DATABASE_URL
+          value: "sqlite:///app/db.sqlite3"
+        - name: DEBUG
+          value: "True" 

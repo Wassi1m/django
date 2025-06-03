@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hotel-management-app
+  namespace: hotel-management-prod
+spec:
+  replicas: 3  # Plus de répliques pour la production
+  template:
+    spec:
+      containers:
+      - name: django-app
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 1Gi
+          requests:
+            cpu: 500m
+            memory: 512Mi
+        env:
+        - name: DEBUG
+          value: "False"
+        - name: DATABASE_URL
+          value: "postgresql://$(DATABASE_USER):$(DB_PASSWORD)@$(DATABASE_HOST):$(DATABASE_PORT)/$(DATABASE_NAME)" 
